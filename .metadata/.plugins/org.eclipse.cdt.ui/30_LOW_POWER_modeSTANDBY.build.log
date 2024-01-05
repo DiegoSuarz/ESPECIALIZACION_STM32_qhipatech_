@@ -1,0 +1,10 @@
+22:06:21 **** Incremental Build of configuration Debug for project 30_LOW_POWER_modeSTANDBY ****
+make -j16 all 
+arm-none-eabi-size  30_LOW_POWER_modeSTANDBY.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11328	     20	   1652	  13000	   32c8	30_LOW_POWER_modeSTANDBY.elf
+Finished building: default.size.stdout
+ 
+
+22:06:21 Build Finished. 0 errors, 0 warnings. (took 442ms)
+

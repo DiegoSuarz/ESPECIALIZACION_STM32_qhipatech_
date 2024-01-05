@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;28_LOW_POWER&apos; to &apos;28_LOW_POWER_modeSLEEP&apos;" description="Rename resource &apos;28_LOW_POWER&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/28_LOW_POWER" name="28_LOW_POWER_modeSLEEP" stamp="1704247681483" updateReferences="true"/>
+</session>
