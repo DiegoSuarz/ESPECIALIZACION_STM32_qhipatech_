@@ -1,0 +1,17 @@
+21:40:33 **** Incremental Build of configuration Debug for project 33_FreeRTOS_1 ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xE -c -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/33_FreeRTOS_1/Middlewares/Third_Party/FreeRTOS/include" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/33_FreeRTOS_1/Middlewares/Third_Party/FreeRTOS/portable/GCC/ARM_CM4F" -I../Core/Inc -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/33_FreeRTOS_1/Middlewares/Third_Party/SEGGER/Config" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/33_FreeRTOS_1/Middlewares/Third_Party/SEGGER/OS" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/33_FreeRTOS_1/Middlewares/Third_Party/SEGGER/SEGGER" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "33_FreeRTOS_1.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dg_su\OneDrive - Universidad Tecnologica del Peru\Estudios\Cursos\Microcontroladores\STM32\ESPECIALIZACION_STM32\CODIGO\33_FreeRTOS_1\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="33_FreeRTOS_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 33_FreeRTOS_1.elf
+ 
+arm-none-eabi-size  33_FreeRTOS_1.elf 
+arm-none-eabi-objdump -h -S 33_FreeRTOS_1.elf  > "33_FreeRTOS_1.list"
+   text	   data	    bss	    dec	    hex	filename
+  23904	     28	  19036	  42968	   a7d8	33_FreeRTOS_1.elf
+Finished building: default.size.stdout
+ 
+Finished building: 33_FreeRTOS_1.list
+ 
+
+21:40:35 Build Finished. 0 errors, 0 warnings. (took 1s.581ms)
+
