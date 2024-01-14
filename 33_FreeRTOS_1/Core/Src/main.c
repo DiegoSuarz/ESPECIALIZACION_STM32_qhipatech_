@@ -178,10 +178,10 @@ void vTarea2(void *params){
 
 	for(;;){
 
-		        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
-				//printf("Tarea 2 Ejecutandose :D \n\r");
-				vTaskDelay(pdMS_TO_TICKS(150));
-	}
+		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+		//printf("Tarea 2 Ejecutandose :D \n\r");
+		vTaskDelay(pdMS_TO_TICKS(150));
+}
 	vTaskDelete(NULL);
 }
 /* USER CODE END 4 */

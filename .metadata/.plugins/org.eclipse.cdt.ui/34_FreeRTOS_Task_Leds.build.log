@@ -1,0 +1,10 @@
+22:12:40 **** Incremental Build of configuration Debug for project 34_FreeRTOS_Task_Leds ****
+make -j16 all 
+arm-none-eabi-size  34_FreeRTOS_Task_Leds.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26428	    108	  14244	  40780	   9f4c	34_FreeRTOS_Task_Leds.elf
+Finished building: default.size.stdout
+ 
+
+22:12:40 Build Finished. 0 errors, 0 warnings. (took 639ms)
+
