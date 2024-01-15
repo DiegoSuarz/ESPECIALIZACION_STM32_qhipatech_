@@ -1,1 +1,3 @@
 1705198083154	Delete resource '34_FreeRTOS_Task_Leds'
+1705266178966	Delete resource '35_FreeRTOS_Task_LCD/Core/Inc/i2c.h'
+1705266185103	Delete resource '35_FreeRTOS_Task_LCD/Core/Src/i2c.c'

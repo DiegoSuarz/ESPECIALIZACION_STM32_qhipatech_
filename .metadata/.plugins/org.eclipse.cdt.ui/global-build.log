@@ -1,21 +1,44 @@
-22:12:34 **** Incremental Build of configuration Debug for project 34_FreeRTOS_Task_Leds ****
+20:40:32 **** Incremental Build of configuration Debug for project 37_FreeRTOS_Queue ****
 make -j16 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xE -c -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/34_FreeRTOS_Task_Leds/Middlewares/Third_Party/FreeRTOS/include" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/34_FreeRTOS_Task_Leds/Middlewares/Third_Party/FreeRTOS/portable/GCC/ARM_CM4F" -I../Core/Inc -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/34_FreeRTOS_Task_Leds/Middlewares/Third_Party/SEGGER/Config" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/34_FreeRTOS_Task_Leds/Middlewares/Third_Party/SEGGER/OS" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/34_FreeRTOS_Task_Leds/Middlewares/Third_Party/SEGGER/SEGGER" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/34_FreeRTOS_Task_Leds/Middlewares" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "34_FreeRTOS_Task_Leds.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dg_su\OneDrive - Universidad Tecnologica del Peru\Estudios\Cursos\Microcontroladores\STM32\ESPECIALIZACION_STM32\CODIGO\34_FreeRTOS_Task_Leds\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="34_FreeRTOS_Task_Leds.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 34_FreeRTOS_Task_Leds.elf
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xE -c -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares/Third_Party/FreeRTOS/include" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares/Third_Party/FreeRTOS/portable/GCC/ARM_CM4F" -I../Core/Inc -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares/Third_Party/SEGGER/Config" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares/Third_Party/SEGGER/OS" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares/Third_Party/SEGGER/SEGGER" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'vTask1':
+../Core/Src/main.c:157:20: warning: variable 'estado' set but not used [-Wunused-but-set-variable]
+  157 |         BaseType_t estado;
+      |                    ^~~~~~
+../Core/Src/main.c: In function 'vTask2':
+../Core/Src/main.c:170:20: warning: variable 'estado' set but not used [-Wunused-but-set-variable]
+  170 |         BaseType_t estado;
+      |                    ^~~~~~
+arm-none-eabi-gcc -o "37_FreeRTOS_Queue.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dg_su\OneDrive - Universidad Tecnologica del Peru\Estudios\Cursos\Microcontroladores\STM32\ESPECIALIZACION_STM32\CODIGO\37_FreeRTOS_Queue\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="37_FreeRTOS_Queue.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 37_FreeRTOS_Queue.elf
  
-arm-none-eabi-size  34_FreeRTOS_Task_Leds.elf 
-arm-none-eabi-objdump -h -S 34_FreeRTOS_Task_Leds.elf  > "34_FreeRTOS_Task_Leds.list"
+arm-none-eabi-size  37_FreeRTOS_Queue.elf 
+arm-none-eabi-objdump -h -S 37_FreeRTOS_Queue.elf  > "37_FreeRTOS_Queue.list"
    text	   data	    bss	    dec	    hex	filename
-  26428	    108	  14244	  40780	   9f4c	34_FreeRTOS_Task_Leds.elf
+  29360	    108	  14244	  43712	   aac0	37_FreeRTOS_Queue.elf
 Finished building: default.size.stdout
  
-Finished building: 34_FreeRTOS_Task_Leds.list
+Finished building: 37_FreeRTOS_Queue.list
  
-22:12:40 **** Incremental Build of configuration Debug for project 34_FreeRTOS_Task_Leds ****
+20:40:37 **** Incremental Build of configuration Debug for project 37_FreeRTOS_Queue ****
 make -j16 all 
-arm-none-eabi-size  34_FreeRTOS_Task_Leds.elf 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xE -c -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares/Third_Party/FreeRTOS/include" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares/Third_Party/FreeRTOS/portable/GCC/ARM_CM4F" -I../Core/Inc -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares/Third_Party/SEGGER/Config" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares/Third_Party/SEGGER/OS" -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares/Third_Party/SEGGER/SEGGER" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/dg_su/OneDrive - Universidad Tecnologica del Peru/Estudios/Cursos/Microcontroladores/STM32/ESPECIALIZACION_STM32/CODIGO/37_FreeRTOS_Queue/Middlewares" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'vTask1':
+../Core/Src/main.c:157:20: warning: variable 'estado' set but not used [-Wunused-but-set-variable]
+  157 |         BaseType_t estado;
+      |                    ^~~~~~
+../Core/Src/main.c: In function 'vTask2':
+../Core/Src/main.c:170:20: warning: variable 'estado' set but not used [-Wunused-but-set-variable]
+  170 |         BaseType_t estado;
+      |                    ^~~~~~
+arm-none-eabi-gcc -o "37_FreeRTOS_Queue.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dg_su\OneDrive - Universidad Tecnologica del Peru\Estudios\Cursos\Microcontroladores\STM32\ESPECIALIZACION_STM32\CODIGO\37_FreeRTOS_Queue\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="37_FreeRTOS_Queue.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 37_FreeRTOS_Queue.elf
+ 
+arm-none-eabi-size  37_FreeRTOS_Queue.elf 
+arm-none-eabi-objdump -h -S 37_FreeRTOS_Queue.elf  > "37_FreeRTOS_Queue.list"
    text	   data	    bss	    dec	    hex	filename
-  26428	    108	  14244	  40780	   9f4c	34_FreeRTOS_Task_Leds.elf
+  29360	    108	  14244	  43712	   aac0	37_FreeRTOS_Queue.elf
 Finished building: default.size.stdout
+ 
+Finished building: 37_FreeRTOS_Queue.list
  

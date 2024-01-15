@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;36_FreeRTOS_Timer/Plantilla_RTOS.ioc&apos; to &apos;36_FreeRTOS_Timer.ioc&apos;" description="Rename resource &apos;Plantilla_RTOS.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Plantilla_RTOS.ioc" name="36_FreeRTOS_Timer.ioc" stamp="1705275546461" updateReferences="true"/>
+</session>
