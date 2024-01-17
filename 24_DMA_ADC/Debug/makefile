@@ -60,8 +60,8 @@ all: main-build
 main-build: 24_DMA_ADC.elf secondary-outputs
 
 # Tool invocations
-24_DMA_ADC.elf 24_DMA_ADC.map: $(OBJS) $(USER_OBJS) C:\Users\dg_su\OneDrive\ -\ Universidad\ Tecnologica\ del\ Peru\Estudios\Cursos\Microcontroladores\STM32\ESPACIALIZACION_STM32\CODIGO_RESTORE\24_DMA_ADC\STM32F401RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "24_DMA_ADC.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\dg_su\OneDrive - Universidad Tecnologica del Peru\Estudios\Cursos\Microcontroladores\STM32\ESPACIALIZACION_STM32\CODIGO_RESTORE\24_DMA_ADC\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="24_DMA_ADC.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+24_DMA_ADC.elf 24_DMA_ADC.map: $(OBJS) $(USER_OBJS) C:\Users\dg_su\OneDrive\ -\ Universidad\ Tecnologica\ del\ Peru\Estudios\Cursos\Microcontroladores\STM32\ESPECIALIZACION_STM32\CODIGO\24_DMA_ADC\STM32F401RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "24_DMA_ADC.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\dg_su\OneDrive - Universidad Tecnologica del Peru\Estudios\Cursos\Microcontroladores\STM32\ESPECIALIZACION_STM32\CODIGO\24_DMA_ADC\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="24_DMA_ADC.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

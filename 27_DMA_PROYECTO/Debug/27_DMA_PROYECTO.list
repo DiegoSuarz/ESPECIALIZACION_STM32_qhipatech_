@@ -41,7 +41,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_line   00012736  00000000  00000000  0004c5d4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    00099269  00000000  00000000  0005ed0a  2**0
+ 19 .debug_str    0009926a  00000000  00000000  0005ed0a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  20 .debug_frame  00003c98  00000000  00000000  000f7f74  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -1542,7 +1542,7 @@ void MX_TIM1_Init(void)
   }
   if (HAL_TIM_PWM_Init(&htim1) != HAL_OK)
  8000aca:	4828      	ldr	r0, [pc, #160]	; (8000b6c <MX_TIM1_Init+0x138>)
- 8000acc:	f002 faa1 	bl	8003012 <HAL_TIM_PWM_Init>
+ 8000acc:	f002 fa97 	bl	8002ffe <HAL_TIM_PWM_Init>
  8000ad0:	4603      	mov	r3, r0
  8000ad2:	2b00      	cmp	r3, #0
  8000ad4:	d001      	beq.n	8000ada <MX_TIM1_Init+0xa6>
@@ -1650,21 +1650,21 @@ void MX_TIM1_Init(void)
  8000b6c:	2000218c 	.word	0x2000218c
  8000b70:	40010000 	.word	0x40010000
 
-08000b74 <HAL_TIM_PWM_MspInit>:
+08000b74 <HAL_TIM_Base_MspInit>:
 
-void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef* tim_pwmHandle)
+void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
 {
  8000b74:	b580      	push	{r7, lr}
  8000b76:	b084      	sub	sp, #16
  8000b78:	af00      	add	r7, sp, #0
  8000b7a:	6078      	str	r0, [r7, #4]
 
-  if(tim_pwmHandle->Instance==TIM1)
+  if(tim_baseHandle->Instance==TIM1)
  8000b7c:	687b      	ldr	r3, [r7, #4]
  8000b7e:	681b      	ldr	r3, [r3, #0]
- 8000b80:	4a22      	ldr	r2, [pc, #136]	; (8000c0c <HAL_TIM_PWM_MspInit+0x98>)
+ 8000b80:	4a22      	ldr	r2, [pc, #136]	; (8000c0c <HAL_TIM_Base_MspInit+0x98>)
  8000b82:	4293      	cmp	r3, r2
- 8000b84:	d13d      	bne.n	8000c02 <HAL_TIM_PWM_MspInit+0x8e>
+ 8000b84:	d13d      	bne.n	8000c02 <HAL_TIM_Base_MspInit+0x8e>
   {
   /* USER CODE BEGIN TIM1_MspInit 0 */
 
@@ -1673,12 +1673,12 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef* tim_pwmHandle)
     __HAL_RCC_TIM1_CLK_ENABLE();
  8000b86:	2300      	movs	r3, #0
  8000b88:	60fb      	str	r3, [r7, #12]
- 8000b8a:	4b21      	ldr	r3, [pc, #132]	; (8000c10 <HAL_TIM_PWM_MspInit+0x9c>)
+ 8000b8a:	4b21      	ldr	r3, [pc, #132]	; (8000c10 <HAL_TIM_Base_MspInit+0x9c>)
  8000b8c:	6c5b      	ldr	r3, [r3, #68]	; 0x44
- 8000b8e:	4a20      	ldr	r2, [pc, #128]	; (8000c10 <HAL_TIM_PWM_MspInit+0x9c>)
+ 8000b8e:	4a20      	ldr	r2, [pc, #128]	; (8000c10 <HAL_TIM_Base_MspInit+0x9c>)
  8000b90:	f043 0301 	orr.w	r3, r3, #1
  8000b94:	6453      	str	r3, [r2, #68]	; 0x44
- 8000b96:	4b1e      	ldr	r3, [pc, #120]	; (8000c10 <HAL_TIM_PWM_MspInit+0x9c>)
+ 8000b96:	4b1e      	ldr	r3, [pc, #120]	; (8000c10 <HAL_TIM_Base_MspInit+0x9c>)
  8000b98:	6c5b      	ldr	r3, [r3, #68]	; 0x44
  8000b9a:	f003 0301 	and.w	r3, r3, #1
  8000b9e:	60fb      	str	r3, [r7, #12]
@@ -1687,61 +1687,61 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef* tim_pwmHandle)
     /* TIM1 DMA Init */
     /* TIM1_CH1 Init */
     hdma_tim1_ch1.Instance = DMA2_Stream1;
- 8000ba2:	4b1c      	ldr	r3, [pc, #112]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
- 8000ba4:	4a1c      	ldr	r2, [pc, #112]	; (8000c18 <HAL_TIM_PWM_MspInit+0xa4>)
+ 8000ba2:	4b1c      	ldr	r3, [pc, #112]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
+ 8000ba4:	4a1c      	ldr	r2, [pc, #112]	; (8000c18 <HAL_TIM_Base_MspInit+0xa4>)
  8000ba6:	601a      	str	r2, [r3, #0]
     hdma_tim1_ch1.Init.Channel = DMA_CHANNEL_6;
- 8000ba8:	4b1a      	ldr	r3, [pc, #104]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000ba8:	4b1a      	ldr	r3, [pc, #104]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000baa:	f04f 6240 	mov.w	r2, #201326592	; 0xc000000
  8000bae:	605a      	str	r2, [r3, #4]
     hdma_tim1_ch1.Init.Direction = DMA_PERIPH_TO_MEMORY;
- 8000bb0:	4b18      	ldr	r3, [pc, #96]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000bb0:	4b18      	ldr	r3, [pc, #96]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000bb2:	2200      	movs	r2, #0
  8000bb4:	609a      	str	r2, [r3, #8]
     hdma_tim1_ch1.Init.PeriphInc = DMA_PINC_DISABLE;
- 8000bb6:	4b17      	ldr	r3, [pc, #92]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000bb6:	4b17      	ldr	r3, [pc, #92]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000bb8:	2200      	movs	r2, #0
  8000bba:	60da      	str	r2, [r3, #12]
     hdma_tim1_ch1.Init.MemInc = DMA_MINC_ENABLE;
- 8000bbc:	4b15      	ldr	r3, [pc, #84]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000bbc:	4b15      	ldr	r3, [pc, #84]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000bbe:	f44f 6280 	mov.w	r2, #1024	; 0x400
  8000bc2:	611a      	str	r2, [r3, #16]
     hdma_tim1_ch1.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
- 8000bc4:	4b13      	ldr	r3, [pc, #76]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000bc4:	4b13      	ldr	r3, [pc, #76]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000bc6:	f44f 6200 	mov.w	r2, #2048	; 0x800
  8000bca:	615a      	str	r2, [r3, #20]
     hdma_tim1_ch1.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
- 8000bcc:	4b11      	ldr	r3, [pc, #68]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000bcc:	4b11      	ldr	r3, [pc, #68]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000bce:	f44f 5200 	mov.w	r2, #8192	; 0x2000
  8000bd2:	619a      	str	r2, [r3, #24]
     hdma_tim1_ch1.Init.Mode = DMA_NORMAL;
- 8000bd4:	4b0f      	ldr	r3, [pc, #60]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000bd4:	4b0f      	ldr	r3, [pc, #60]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000bd6:	2200      	movs	r2, #0
  8000bd8:	61da      	str	r2, [r3, #28]
     hdma_tim1_ch1.Init.Priority = DMA_PRIORITY_LOW;
- 8000bda:	4b0e      	ldr	r3, [pc, #56]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000bda:	4b0e      	ldr	r3, [pc, #56]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000bdc:	2200      	movs	r2, #0
  8000bde:	621a      	str	r2, [r3, #32]
     hdma_tim1_ch1.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
- 8000be0:	4b0c      	ldr	r3, [pc, #48]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000be0:	4b0c      	ldr	r3, [pc, #48]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000be2:	2200      	movs	r2, #0
  8000be4:	625a      	str	r2, [r3, #36]	; 0x24
     if (HAL_DMA_Init(&hdma_tim1_ch1) != HAL_OK)
- 8000be6:	480b      	ldr	r0, [pc, #44]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000be6:	480b      	ldr	r0, [pc, #44]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000be8:	f000 ffc2 	bl	8001b70 <HAL_DMA_Init>
  8000bec:	4603      	mov	r3, r0
  8000bee:	2b00      	cmp	r3, #0
- 8000bf0:	d001      	beq.n	8000bf6 <HAL_TIM_PWM_MspInit+0x82>
+ 8000bf0:	d001      	beq.n	8000bf6 <HAL_TIM_Base_MspInit+0x82>
     {
       Error_Handler();
  8000bf2:	f7ff fe83 	bl	80008fc <Error_Handler>
     }
 
-    __HAL_LINKDMA(tim_pwmHandle,hdma[TIM_DMA_ID_CC1],hdma_tim1_ch1);
+    __HAL_LINKDMA(tim_baseHandle,hdma[TIM_DMA_ID_CC1],hdma_tim1_ch1);
  8000bf6:	687b      	ldr	r3, [r7, #4]
- 8000bf8:	4a06      	ldr	r2, [pc, #24]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000bf8:	4a06      	ldr	r2, [pc, #24]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000bfa:	625a      	str	r2, [r3, #36]	; 0x24
- 8000bfc:	4a05      	ldr	r2, [pc, #20]	; (8000c14 <HAL_TIM_PWM_MspInit+0xa0>)
+ 8000bfc:	4a05      	ldr	r2, [pc, #20]	; (8000c14 <HAL_TIM_Base_MspInit+0xa0>)
  8000bfe:	687b      	ldr	r3, [r7, #4]
  8000c00:	6393      	str	r3, [r2, #56]	; 0x38
 
@@ -8242,7 +8242,7 @@ HAL_StatusTypeDef HAL_TIM_Base_Init(TIM_HandleTypeDef *htim)
     /* Init the low level hardware : GPIO, CLOCK, NVIC */
     HAL_TIM_Base_MspInit(htim);
  8002f86:	6878      	ldr	r0, [r7, #4]
- 8002f88:	f000 f839 	bl	8002ffe <HAL_TIM_Base_MspInit>
+ 8002f88:	f7fd fdf4 	bl	8000b74 <HAL_TIM_Base_MspInit>
 #endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
   }
 
@@ -8310,140 +8310,140 @@ HAL_StatusTypeDef HAL_TIM_Base_Init(TIM_HandleTypeDef *htim)
  8002ffa:	46bd      	mov	sp, r7
  8002ffc:	bd80      	pop	{r7, pc}
 
-08002ffe <HAL_TIM_Base_MspInit>:
-  * @brief  Initializes the TIM Base MSP.
-  * @param  htim TIM Base handle
-  * @retval None
-  */
-__weak void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
-{
- 8002ffe:	b480      	push	{r7}
- 8003000:	b083      	sub	sp, #12
- 8003002:	af00      	add	r7, sp, #0
- 8003004:	6078      	str	r0, [r7, #4]
-  UNUSED(htim);
-
-  /* NOTE : This function should not be modified, when the callback is needed,
-            the HAL_TIM_Base_MspInit could be implemented in the user file
-   */
-}
- 8003006:	bf00      	nop
- 8003008:	370c      	adds	r7, #12
- 800300a:	46bd      	mov	sp, r7
- 800300c:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8003010:	4770      	bx	lr
-
-08003012 <HAL_TIM_PWM_Init>:
+08002ffe <HAL_TIM_PWM_Init>:
   *         Ex: call @ref HAL_TIM_PWM_DeInit() before HAL_TIM_PWM_Init()
   * @param  htim TIM PWM handle
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_TIM_PWM_Init(TIM_HandleTypeDef *htim)
 {
- 8003012:	b580      	push	{r7, lr}
- 8003014:	b082      	sub	sp, #8
- 8003016:	af00      	add	r7, sp, #0
- 8003018:	6078      	str	r0, [r7, #4]
+ 8002ffe:	b580      	push	{r7, lr}
+ 8003000:	b082      	sub	sp, #8
+ 8003002:	af00      	add	r7, sp, #0
+ 8003004:	6078      	str	r0, [r7, #4]
   /* Check the TIM handle allocation */
   if (htim == NULL)
- 800301a:	687b      	ldr	r3, [r7, #4]
- 800301c:	2b00      	cmp	r3, #0
- 800301e:	d101      	bne.n	8003024 <HAL_TIM_PWM_Init+0x12>
+ 8003006:	687b      	ldr	r3, [r7, #4]
+ 8003008:	2b00      	cmp	r3, #0
+ 800300a:	d101      	bne.n	8003010 <HAL_TIM_PWM_Init+0x12>
   {
     return HAL_ERROR;
- 8003020:	2301      	movs	r3, #1
- 8003022:	e041      	b.n	80030a8 <HAL_TIM_PWM_Init+0x96>
+ 800300c:	2301      	movs	r3, #1
+ 800300e:	e041      	b.n	8003094 <HAL_TIM_PWM_Init+0x96>
   assert_param(IS_TIM_COUNTER_MODE(htim->Init.CounterMode));
   assert_param(IS_TIM_CLOCKDIVISION_DIV(htim->Init.ClockDivision));
   assert_param(IS_TIM_PERIOD(htim, htim->Init.Period));
   assert_param(IS_TIM_AUTORELOAD_PRELOAD(htim->Init.AutoReloadPreload));
 
   if (htim->State == HAL_TIM_STATE_RESET)
- 8003024:	687b      	ldr	r3, [r7, #4]
- 8003026:	f893 303d 	ldrb.w	r3, [r3, #61]	; 0x3d
- 800302a:	b2db      	uxtb	r3, r3
- 800302c:	2b00      	cmp	r3, #0
- 800302e:	d106      	bne.n	800303e <HAL_TIM_PWM_Init+0x2c>
+ 8003010:	687b      	ldr	r3, [r7, #4]
+ 8003012:	f893 303d 	ldrb.w	r3, [r3, #61]	; 0x3d
+ 8003016:	b2db      	uxtb	r3, r3
+ 8003018:	2b00      	cmp	r3, #0
+ 800301a:	d106      	bne.n	800302a <HAL_TIM_PWM_Init+0x2c>
   {
     /* Allocate lock resource and initialize it */
     htim->Lock = HAL_UNLOCKED;
- 8003030:	687b      	ldr	r3, [r7, #4]
- 8003032:	2200      	movs	r2, #0
- 8003034:	f883 203c 	strb.w	r2, [r3, #60]	; 0x3c
+ 800301c:	687b      	ldr	r3, [r7, #4]
+ 800301e:	2200      	movs	r2, #0
+ 8003020:	f883 203c 	strb.w	r2, [r3, #60]	; 0x3c
     }
     /* Init the low level hardware : GPIO, CLOCK, NVIC */
     htim->PWM_MspInitCallback(htim);
 #else
     /* Init the low level hardware : GPIO, CLOCK, NVIC and DMA */
     HAL_TIM_PWM_MspInit(htim);
- 8003038:	6878      	ldr	r0, [r7, #4]
- 800303a:	f7fd fd9b 	bl	8000b74 <HAL_TIM_PWM_MspInit>
+ 8003024:	6878      	ldr	r0, [r7, #4]
+ 8003026:	f000 f839 	bl	800309c <HAL_TIM_PWM_MspInit>
 #endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
   }
 
   /* Set the TIM state */
   htim->State = HAL_TIM_STATE_BUSY;
- 800303e:	687b      	ldr	r3, [r7, #4]
- 8003040:	2202      	movs	r2, #2
- 8003042:	f883 203d 	strb.w	r2, [r3, #61]	; 0x3d
+ 800302a:	687b      	ldr	r3, [r7, #4]
+ 800302c:	2202      	movs	r2, #2
+ 800302e:	f883 203d 	strb.w	r2, [r3, #61]	; 0x3d
 
   /* Init the base time for the PWM */
   TIM_Base_SetConfig(htim->Instance, &htim->Init);
- 8003046:	687b      	ldr	r3, [r7, #4]
- 8003048:	681a      	ldr	r2, [r3, #0]
- 800304a:	687b      	ldr	r3, [r7, #4]
- 800304c:	3304      	adds	r3, #4
- 800304e:	4619      	mov	r1, r3
- 8003050:	4610      	mov	r0, r2
- 8003052:	f000 fc55 	bl	8003900 <TIM_Base_SetConfig>
+ 8003032:	687b      	ldr	r3, [r7, #4]
+ 8003034:	681a      	ldr	r2, [r3, #0]
+ 8003036:	687b      	ldr	r3, [r7, #4]
+ 8003038:	3304      	adds	r3, #4
+ 800303a:	4619      	mov	r1, r3
+ 800303c:	4610      	mov	r0, r2
+ 800303e:	f000 fc5f 	bl	8003900 <TIM_Base_SetConfig>
 
   /* Initialize the DMA burst operation state */
   htim->DMABurstState = HAL_DMA_BURST_STATE_READY;
- 8003056:	687b      	ldr	r3, [r7, #4]
- 8003058:	2201      	movs	r2, #1
- 800305a:	f883 2046 	strb.w	r2, [r3, #70]	; 0x46
+ 8003042:	687b      	ldr	r3, [r7, #4]
+ 8003044:	2201      	movs	r2, #1
+ 8003046:	f883 2046 	strb.w	r2, [r3, #70]	; 0x46
 
   /* Initialize the TIM channels state */
   TIM_CHANNEL_STATE_SET_ALL(htim, HAL_TIM_CHANNEL_STATE_READY);
- 800305e:	687b      	ldr	r3, [r7, #4]
- 8003060:	2201      	movs	r2, #1
- 8003062:	f883 203e 	strb.w	r2, [r3, #62]	; 0x3e
- 8003066:	687b      	ldr	r3, [r7, #4]
- 8003068:	2201      	movs	r2, #1
- 800306a:	f883 203f 	strb.w	r2, [r3, #63]	; 0x3f
- 800306e:	687b      	ldr	r3, [r7, #4]
- 8003070:	2201      	movs	r2, #1
- 8003072:	f883 2040 	strb.w	r2, [r3, #64]	; 0x40
- 8003076:	687b      	ldr	r3, [r7, #4]
- 8003078:	2201      	movs	r2, #1
- 800307a:	f883 2041 	strb.w	r2, [r3, #65]	; 0x41
+ 800304a:	687b      	ldr	r3, [r7, #4]
+ 800304c:	2201      	movs	r2, #1
+ 800304e:	f883 203e 	strb.w	r2, [r3, #62]	; 0x3e
+ 8003052:	687b      	ldr	r3, [r7, #4]
+ 8003054:	2201      	movs	r2, #1
+ 8003056:	f883 203f 	strb.w	r2, [r3, #63]	; 0x3f
+ 800305a:	687b      	ldr	r3, [r7, #4]
+ 800305c:	2201      	movs	r2, #1
+ 800305e:	f883 2040 	strb.w	r2, [r3, #64]	; 0x40
+ 8003062:	687b      	ldr	r3, [r7, #4]
+ 8003064:	2201      	movs	r2, #1
+ 8003066:	f883 2041 	strb.w	r2, [r3, #65]	; 0x41
   TIM_CHANNEL_N_STATE_SET_ALL(htim, HAL_TIM_CHANNEL_STATE_READY);
- 800307e:	687b      	ldr	r3, [r7, #4]
- 8003080:	2201      	movs	r2, #1
- 8003082:	f883 2042 	strb.w	r2, [r3, #66]	; 0x42
- 8003086:	687b      	ldr	r3, [r7, #4]
- 8003088:	2201      	movs	r2, #1
- 800308a:	f883 2043 	strb.w	r2, [r3, #67]	; 0x43
- 800308e:	687b      	ldr	r3, [r7, #4]
- 8003090:	2201      	movs	r2, #1
- 8003092:	f883 2044 	strb.w	r2, [r3, #68]	; 0x44
- 8003096:	687b      	ldr	r3, [r7, #4]
- 8003098:	2201      	movs	r2, #1
- 800309a:	f883 2045 	strb.w	r2, [r3, #69]	; 0x45
+ 800306a:	687b      	ldr	r3, [r7, #4]
+ 800306c:	2201      	movs	r2, #1
+ 800306e:	f883 2042 	strb.w	r2, [r3, #66]	; 0x42
+ 8003072:	687b      	ldr	r3, [r7, #4]
+ 8003074:	2201      	movs	r2, #1
+ 8003076:	f883 2043 	strb.w	r2, [r3, #67]	; 0x43
+ 800307a:	687b      	ldr	r3, [r7, #4]
+ 800307c:	2201      	movs	r2, #1
+ 800307e:	f883 2044 	strb.w	r2, [r3, #68]	; 0x44
+ 8003082:	687b      	ldr	r3, [r7, #4]
+ 8003084:	2201      	movs	r2, #1
+ 8003086:	f883 2045 	strb.w	r2, [r3, #69]	; 0x45
 
   /* Initialize the TIM state*/
   htim->State = HAL_TIM_STATE_READY;
- 800309e:	687b      	ldr	r3, [r7, #4]
- 80030a0:	2201      	movs	r2, #1
- 80030a2:	f883 203d 	strb.w	r2, [r3, #61]	; 0x3d
+ 800308a:	687b      	ldr	r3, [r7, #4]
+ 800308c:	2201      	movs	r2, #1
+ 800308e:	f883 203d 	strb.w	r2, [r3, #61]	; 0x3d
 
   return HAL_OK;
- 80030a6:	2300      	movs	r3, #0
+ 8003092:	2300      	movs	r3, #0
 }
- 80030a8:	4618      	mov	r0, r3
- 80030aa:	3708      	adds	r7, #8
- 80030ac:	46bd      	mov	sp, r7
- 80030ae:	bd80      	pop	{r7, pc}
+ 8003094:	4618      	mov	r0, r3
+ 8003096:	3708      	adds	r7, #8
+ 8003098:	46bd      	mov	sp, r7
+ 800309a:	bd80      	pop	{r7, pc}
+
+0800309c <HAL_TIM_PWM_MspInit>:
+  * @brief  Initializes the TIM PWM MSP.
+  * @param  htim TIM PWM handle
+  * @retval None
+  */
+__weak void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
+{
+ 800309c:	b480      	push	{r7}
+ 800309e:	b083      	sub	sp, #12
+ 80030a0:	af00      	add	r7, sp, #0
+ 80030a2:	6078      	str	r0, [r7, #4]
+  UNUSED(htim);
+
+  /* NOTE : This function should not be modified, when the callback is needed,
+            the HAL_TIM_PWM_MspInit could be implemented in the user file
+   */
+}
+ 80030a4:	bf00      	nop
+ 80030a6:	370c      	adds	r7, #12
+ 80030a8:	46bd      	mov	sp, r7
+ 80030aa:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80030ae:	4770      	bx	lr
 
 080030b0 <HAL_TIM_PWM_Start_DMA>:
   * @param  Length The length of data to be transferred from memory to TIM peripheral

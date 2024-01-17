@@ -1,0 +1,10 @@
+20:24:50 **** Incremental Build of configuration Debug for project 38_FreeRTOS_QueueValor ****
+make -j16 all 
+arm-none-eabi-size  38_FreeRTOS_QueueValor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29816	    108	  14244	  44168	   ac88	38_FreeRTOS_QueueValor.elf
+Finished building: default.size.stdout
+ 
+
+20:24:51 Build Finished. 0 errors, 0 warnings. (took 690ms)
+

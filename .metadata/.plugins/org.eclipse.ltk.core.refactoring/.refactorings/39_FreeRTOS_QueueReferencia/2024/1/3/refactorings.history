@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;39_FreeRTOS_QueueReferencia/38_FreeRTOS_QueueValor.ioc&apos; to &apos;39_FreeRTOS_QueueReferencia.ioc&apos;" description="Rename resource &apos;38_FreeRTOS_QueueValor.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="38_FreeRTOS_QueueValor.ioc" name="39_FreeRTOS_QueueReferencia.ioc" stamp="1705455108771" updateReferences="true"/>
+</session>
