@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;40_FreeRTOS_SemaforoBinario/39_FreeRTOS_QueueReferencia.ioc&apos; to &apos;40_FreeRTOS_SemaforoBinario.ioc&apos;" description="Rename resource &apos;39_FreeRTOS_QueueReferencia.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="39_FreeRTOS_QueueReferencia.ioc" name="40_FreeRTOS_SemaforoBinario.ioc" stamp="1705540129746" updateReferences="true"/>
+</session>
