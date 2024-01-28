@@ -4135,7 +4135,7 @@ static void prvResetNextTaskUnblockTime( void )
 
                     /* Inherit the priority before being moved into the new list. */
                     pxMutexHolderTCB->uxPriority = pxCurrentTCB->uxPriority;
-                    prvReaddTaskToReadyList( pxMutexHolderTCB );
+                    prvAddTaskToReadyList( pxMutexHolderTCB );
                 }
                 else
                 {
@@ -4225,7 +4225,7 @@ static void prvResetNextTaskUnblockTime( void )
                      * any other purpose if this task is running, and it must be
                      * running to give back the mutex. */
                     listSET_LIST_ITEM_VALUE( &( pxTCB->xEventListItem ), ( TickType_t ) configMAX_PRIORITIES - ( TickType_t ) pxTCB->uxPriority ); /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
-                    prvReaddTaskToReadyList( pxTCB );
+                    prvAddTaskToReadyList( pxTCB );
 
                     /* Return true to indicate that a context switch is required.
                      * This is only actually required in the corner case whereby

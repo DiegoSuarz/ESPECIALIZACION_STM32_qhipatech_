@@ -1,0 +1,10 @@
+21:14:50 **** Incremental Build of configuration Debug for project 42_FreeRTOS_ISR ****
+make -j16 all 
+arm-none-eabi-size  42_FreeRTOS_ISR.elf 
+   text	   data	    bss	    dec	    hex	filename
+  38612	    120	  14384	  53116	   cf7c	42_FreeRTOS_ISR.elf
+Finished building: default.size.stdout
+ 
+
+21:14:50 Build Finished. 0 errors, 0 warnings. (took 589ms)
+

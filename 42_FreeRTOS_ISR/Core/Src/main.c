@@ -2,6 +2,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -13,18 +14,21 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
+#include "semphr.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 typedef struct{
-	uint8_t Button;
-	uint8_t Led1;
-	uint8_t msTime;
-	uint8_t send_msg[30];
-}LedsValor;
+	uint8_t channel;
+	uint16_t value;
+}ADC_t;
 
-LedsValor led;
+typedef struct{
+	uint8_t buffer[20];
+	uint8_t i;
+	uint8_t Ubyte; //byte fin de cadena
+}UART_t;
 
 /* USER CODE END PTD */
 
@@ -39,12 +43,17 @@ LedsValor led;
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-xTaskHandle xTask1; //enviar información
-xTaskHandle xTask2; //enviar información
+xTaskHandle xTask1;
+xTaskHandle xTask2;
+xTaskHandle xTask3;
 
-xQueueHandle xQueue;
+xQueueHandle xQueueUART;
+xQueueHandle xQueueADC;
 
-BaseType_t status;
+xSemaphoreHandle xSemaphExtern;
+xSemaphoreHandle xSemaphUART;
+
+UART_t uartsend;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -52,6 +61,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void vTask1(void *params);
 void vTask2(void *params);
+void vTask3(void *params);
 
 /* USER CODE END PFP */
 
@@ -91,17 +101,32 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
+  HAL_UART_Receive_IT(&huart2, &uartsend.buffer, sizeof(uartsend.buffer));
 
+  BaseType_t status;
   status = xTaskCreate(vTask1, "tarea1", configMINIMAL_STACK_SIZE, NULL, 0, &xTask1);
   configASSERT(status == pdPASS);
   status = xTaskCreate(vTask2, "tarea2", configMINIMAL_STACK_SIZE, NULL, 0, &xTask2);
   configASSERT(status == pdPASS);
+  status = xTaskCreate(vTask3, "tarea2", configMINIMAL_STACK_SIZE, NULL, 0, &xTask3);
+  configASSERT(status == pdPASS);
 
 
-  xQueue = xQueueCreate(5,sizeof(LedsValor)); //el tamaño de las estrucutra
-  configASSERT(xQueue != NULL);
+  xQueueADC = xQueueCreate(5,sizeof(ADC_t)); //el tamaño de las estrucutra
+  configASSERT(xQueueADC != NULL);
+
+  xQueueUART = xQueueCreate(15,sizeof(UART_t)); //el tamaño de las estrucutra 15; porque va a tener mas flujo de datos
+  configASSERT(xQueueUART != NULL);
+
+  xSemaphExtern = xSemaphoreCreateBinary(); //
+  configASSERT(xSemaphExtern != NULL);
+
+  xSemaphUART= xSemaphoreCreateMutex(); //
+  configASSERT(xSemaphUART != NULL);
+
   vTaskStartScheduler();//Arrancamos el kernel
 
   /* USER CODE END 2 */
@@ -163,44 +188,88 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void vTask1(void *params){
 
-	LedsValor *data = &led;
+
 
 	for(;;){
-		if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13)==0){
-			data->Button = 1;
-			data->Led1 = 1;
-			strcpy((char*)data->send_msg,"LED ON\n\r");
-		}else{
-			data->Button = 0;
-			data->Led1 = 0;
-			strcpy((char*)data ->send_msg,"LED OFF\n\r");
+		if(xSemaphoreTake(xSemaphExtern,portMAX_DELAY)){
+			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+			UART_Printf("Semaforo Recibido de EXT INT\n\r");
 		}
-		data->msTime = 200;
-
-		if (xQueueSend(xQueue,(void *)&data,portMAX_DELAY)){
-			UART_Printf("mensaje enviado\n\r");
-		}
-		vTaskDelay(pdMS_TO_TICKS(20));
+		vTaskDelay(pdMS_TO_TICKS(250));
 	}
 	vTaskDelete(NULL);
 }
 
 
 void vTask2(void *params){
+	ADC_t task_data;
 
-	LedsValor *data;
 	for(;;){
-		if(xQueueReceive(xQueue, &data, portMAX_DELAY)){
-			UART_Printf("dato recibido\n\r");
-			UART_Printf(data->send_msg);
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5,data->Led1);
+		HAL_ADC_Start(&hadc1);
+		HAL_Delay(1);
+		task_data.value = HAL_ADC_GetValue(&hadc1);
+		task_data.channel = 0; //canal analogico 0
+
+		if(xQueueSend(xQueueADC,&task_data,portMAX_DELAY)){
+			UART_Printf("Queue ADC send\n\r");
 		}
-		vTaskDelay(pdMS_TO_TICKS(100));
+		vTaskDelay(pdMS_TO_TICKS(2000));
 	}
 	vTaskDelete(NULL);
 }
 
+void vTask3(void *params){
+	huart2.Instance->CR1 &= ~ USART_CR1_UE; //deshabilitar UART
+	huart2.Instance->CR1 |= USART_CR1_RE; //habilitando recepcion
+	huart2.Instance->CR1 |= USART_CR1_RXNEIE; //habilitar interrupcion por recpcion uart
 
+	HAL_NVIC_SetPriority(USART2_IRQn, 5, 0);
+	HAL_NVIC_EnableIRQ(USART2_IRQn);
+	huart2.Instance->CR1 |= USART_CR1_UE; //habilitar UART
+
+	UART_t task_uart;
+	for(;;){
+		if(xQueueReceive(xQueueUART, (void *)&task_uart, 9000)){
+			UART_Printf("buffer: %s\n\r",task_uart.buffer);
+			UART_Printf("i: %u\n\r",task_uart.i);
+			UART_Printf("Ultimo byte: %X\n\r",task_uart.Ubyte);
+		}else{
+			UART_Printf("Escribeme :C\n\r");
+
+		}
+	}
+	vTaskDelete(NULL);
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	xSemaphoreGiveFromISR(xSemaphExtern,NULL); //libera el semaforo de interrupcion externa desde la ISR EXTI
+}
+
+/*void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+
+	ADC_t adcread;
+	uartsend.Ubyte = USART2->DR;  //SE ACUMULA EN UARTE SEND
+
+
+	if (uartsend.Ubyte == '*') {
+	//if (uartsend.Ubyte == '\n' || uartsend.Ubyte == '\r') {
+
+
+		xQueueSendFromISR(xQueueUART,&uartsend, NULL);
+		memset(&uartsend,0,uartsend.i);
+
+		if (xQueueReceiveFromISR(xQueueADC, (void*)&adcread, NULL)){
+			printf("ADC VALUE: %u",adcread.value);
+		}
+	}else{
+		uartsend.buffer[uartsend.i] = uartsend.Ubyte;
+		uartsend.i++;
+	}
+	HAL_UART_Receive_IT(&huart2, &uartsend.buffer, sizeof(uartsend.buffer));
+}
+*/
 
 void UART_Printf(char *format,...){
     char str[80];
@@ -209,8 +278,11 @@ void UART_Printf(char *format,...){
     va_list args;
     va_start(args, format);
     vsprintf(str, format,args);
-    HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str), 10);
+    if(xSemaphoreTake(xSemaphUART,(TickType_t)15)){ //cada 15 ticks comprueba esta condicional
+    	HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str), 10);
+    }
     va_end(args);
+    xSemaphoreGive(xSemaphUART);
 }
 /* USER CODE END 4 */
 

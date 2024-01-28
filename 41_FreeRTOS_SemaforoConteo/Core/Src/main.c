@@ -13,18 +13,12 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
+#include "semphr.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-typedef struct{
-	uint8_t Button;
-	uint8_t Led1;
-	uint8_t msTime;
-	uint8_t send_msg[30];
-}LedsValor;
 
-LedsValor led;
 
 /* USER CODE END PTD */
 
@@ -39,12 +33,13 @@ LedsValor led;
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-xTaskHandle xTask1; //enviar información
-xTaskHandle xTask2; //enviar información
+xTaskHandle xTask1;
+xTaskHandle xTask2;
+xTaskHandle xTask3;
 
-xQueueHandle xQueue;
+xSemaphoreHandle xSemaforo;
 
-BaseType_t status;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -52,6 +47,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void vTask1(void *params);
 void vTask2(void *params);
+void vTask3(void *params);
 
 /* USER CODE END PFP */
 
@@ -71,7 +67,7 @@ void UART_Printf(char *format,...);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	BaseType_t status;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -98,10 +94,12 @@ int main(void)
   configASSERT(status == pdPASS);
   status = xTaskCreate(vTask2, "tarea2", configMINIMAL_STACK_SIZE, NULL, 0, &xTask2);
   configASSERT(status == pdPASS);
+  status = xTaskCreate(vTask3, "tarea3", configMINIMAL_STACK_SIZE, NULL, 0, &xTask3);
+  configASSERT(status == pdPASS);
 
+  xSemaforo = xSemaphoreCreateCounting(2,2); //grupos de 2 tareas, 2 tareas a la vez
 
-  xQueue = xQueueCreate(5,sizeof(LedsValor)); //el tamaño de las estrucutra
-  configASSERT(xQueue != NULL);
+  configASSERT(xSemaforo != NULL);
   vTaskStartScheduler();//Arrancamos el kernel
 
   /* USER CODE END 2 */
@@ -162,45 +160,64 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 void vTask1(void *params){
-
-	LedsValor *data = &led;
+	BaseType_t status;
 
 	for(;;){
-		if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13)==0){
-			data->Button = 1;
-			data->Led1 = 1;
-			strcpy((char*)data->send_msg,"LED ON\n\r");
-		}else{
-			data->Button = 0;
-			data->Led1 = 0;
-			strcpy((char*)data ->send_msg,"LED OFF\n\r");
-		}
-		data->msTime = 200;
+		status = xSemaphoreTake(xSemaforo,pdMS_TO_TICKS(150)); //preguntar si se libero el semaforo cada 150ms
+		if(status == pdTRUE){
+			UART_Printf("Semaforo en task1\n\r");
+			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+			HAL_Delay(150);
+			xSemaphoreGive(xSemaforo); //liberar el semaforo
 
-		if (xQueueSend(xQueue,(void *)&data,portMAX_DELAY)){
-			UART_Printf("mensaje enviado\n\r");
+
+		}else{
+			UART_Printf("task1 fail\n\r");
 		}
-		vTaskDelay(pdMS_TO_TICKS(20));
+		vTaskDelay(pdMS_TO_TICKS(500));
 	}
 	vTaskDelete(NULL);
 }
 
 
 void vTask2(void *params){
+	BaseType_t status;
 
-	LedsValor *data;
 	for(;;){
-		if(xQueueReceive(xQueue, &data, portMAX_DELAY)){
-			UART_Printf("dato recibido\n\r");
-			UART_Printf(data->send_msg);
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5,data->Led1);
+		status = xSemaphoreTake(xSemaforo,pdMS_TO_TICKS(150)); //preguntar si se libero el semaforo cada 150ms
+		if(status == pdTRUE){
+			UART_Printf("Semaforo en task2\n\r");
+			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+			HAL_Delay(250);
+			xSemaphoreGive(xSemaforo); //liberar el semaforo
+
+
+		}else{
+			UART_Printf("task2 fail\n\r");
 		}
-		vTaskDelay(pdMS_TO_TICKS(100));
+		vTaskDelay(pdMS_TO_TICKS(300));
 	}
 	vTaskDelete(NULL);
 }
 
+void vTask3(void *params){
+	BaseType_t status;
+	for(;;){
+		status = xSemaphoreTake(xSemaforo,pdMS_TO_TICKS(100)); //preguntar si se libero el semaforo cada 150ms
+		if(status == pdTRUE){
+			UART_Printf("Semaforo en task3\n\r");
+			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+			HAL_Delay(350);
+			xSemaphoreGive(xSemaforo); //liberar el semaforo
 
+
+		}else{
+			UART_Printf("task3 fail\n\r");
+		}
+		vTaskDelay(pdMS_TO_TICKS(500));
+	}
+	vTaskDelete(NULL);
+}
 
 void UART_Printf(char *format,...){
     char str[80];

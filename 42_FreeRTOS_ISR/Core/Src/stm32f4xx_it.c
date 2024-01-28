@@ -22,10 +22,30 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+#include "stdio.h"
+#include "stdarg.h"
+#include "string.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
+
+typedef struct{
+	uint8_t channel;
+	uint16_t value;
+}ADC_t;
+
+typedef struct{
+	uint8_t buffer[20];
+	uint8_t i;
+	uint8_t Ubyte; //byte fin de cadena
+}UART_t;
 
 /* USER CODE END TD */
 
@@ -41,6 +61,13 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
+
+ADC_t adc_read;
+UART_t uart_send;
+
+extern xQueueHandle xQueueUART;
+extern xQueueHandle xQueueADC;
+
 
 /* USER CODE END PV */
 
@@ -180,12 +207,41 @@ void TIM1_TRG_COM_TIM11_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
+	uart_send.Ubyte = USART2->DR;  //SE ACUMULA EN UARTE SEND
 
+
+	if (uart_send.Ubyte == '*') {
+	//if (uart_send.Ubyte == '\n' || uart_send.Ubyte == '\r') {
+
+		xQueueSendFromISR(xQueueUART,&uart_send, NULL);
+		memset(&uart_send,0,uart_send.i); //limpiar el buffer
+
+		if (xQueueReceiveFromISR(xQueueADC, (void*)&adc_read, NULL)){
+			printf("ADC VALUE: %u",adc_read.value);
+		}
+	}else{
+		uart_send.buffer[uart_send.i] = uart_send.Ubyte;
+		uart_send.i++;
+	}
   /* USER CODE END USART2_IRQn 0 */
   HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */
 
   /* USER CODE END USART2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles EXTI line[15:10] interrupts.
+  */
+void EXTI15_10_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+
+  /* USER CODE END EXTI15_10_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
+
+  /* USER CODE END EXTI15_10_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

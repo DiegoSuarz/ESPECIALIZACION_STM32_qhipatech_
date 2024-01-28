@@ -1,7 +1,21 @@
-21:59:36 **** Incremental Build of configuration Debug for project 40_FreeRTOS_SemaforoBinario ****
+21:28:19 **** Incremental Build of configuration Debug for project 21_SPI_THERMOCUPLE ****
 make -j16 all 
-arm-none-eabi-size  40_FreeRTOS_SemaforoBinario.elf 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "21_SPI_THERMOCUPLE.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\dg_su\OneDrive - Universidad Tecnologica del Peru\Estudios\Cursos\Microcontroladores\STM32\ESPECIALIZACION_STM32\CODIGO\21_SPI_THERMOCUPLE\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="21_SPI_THERMOCUPLE.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 21_SPI_THERMOCUPLE.elf
+ 
+arm-none-eabi-size  21_SPI_THERMOCUPLE.elf 
+arm-none-eabi-objdump -h -S 21_SPI_THERMOCUPLE.elf  > "21_SPI_THERMOCUPLE.list"
    text	   data	    bss	    dec	    hex	filename
-  29600	    108	  14244	  43952	   abb0	40_FreeRTOS_SemaforoBinario.elf
+  25724	    476	   2076	  28276	   6e74	21_SPI_THERMOCUPLE.elf
+Finished building: default.size.stdout
+ 
+Finished building: 21_SPI_THERMOCUPLE.list
+ 
+21:28:27 **** Incremental Build of configuration Debug for project 21_SPI_THERMOCUPLE ****
+make -j16 all 
+arm-none-eabi-size  21_SPI_THERMOCUPLE.elf 
+   text	   data	    bss	    dec	    hex	filename
+  25724	    476	   2076	  28276	   6e74	21_SPI_THERMOCUPLE.elf
 Finished building: default.size.stdout
  

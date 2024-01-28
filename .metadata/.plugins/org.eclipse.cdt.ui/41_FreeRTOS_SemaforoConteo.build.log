@@ -1,0 +1,10 @@
+20:13:43 **** Incremental Build of configuration Debug for project 41_FreeRTOS_SemaforoConteo ****
+make -j16 all 
+arm-none-eabi-size  41_FreeRTOS_SemaforoConteo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  29764	    108	  14244	  44116	   ac54	41_FreeRTOS_SemaforoConteo.elf
+Finished building: default.size.stdout
+ 
+
+20:13:44 Build Finished. 0 errors, 0 warnings. (took 679ms)
+
